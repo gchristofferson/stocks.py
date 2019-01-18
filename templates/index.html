@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Symbol</th>
+                <th scope="col">Shares</th>
+                <th scope="col">Price</th>
+                <th scope="col">TOTAL</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <td colspan="3"></td>
+                <td>${{ balance }}</td>
+            </tr>
+        </tfoot>
+        <tbody>
+            {% for stock in stocks %}
+                {% if stock['SUM(shares)'] > 0 %}
+                    <tr>
+                        <td>{{ stock.stock | upper }}</td>
+                        <td>{{ stock['SUM(shares)'] }}</td>
+                        <td>${{ stock.currentPrice }}</td>
+                        <td>${{ stock.total }}</td>
+                    </tr>
+                    {% endif %}
+            {% endfor %}
+            <tr>
+                <td colspan="3">CASH</td>
+                <td>${{ cash }}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}

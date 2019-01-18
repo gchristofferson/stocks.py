@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sell Stocks
+{% endblock %}
+
+{% block main %}
+    <form action="/sell" method="post" id="sell">
+        <div class="form-group">
+            <select class="custom-select" form="sell" name="symbol">
+                <option value="" disabled selected>Select Stock</option>
+                {% for stock in stocks %}
+                    {% if stock['SUM(shares)'] > 0 %}
+                        <option value="{{ stock.stock }}" autofocus class="form-control">{{ stock.stock | upper }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <!--<input autocomplete="off" autofocus class="form-control" name="symbol" placeholder="Stock" type="text"/>-->
+            <input autocomplete="off" autofocus class="form-control" name="shares" placeholder="Number of Shares" type="text"/>
+        </div>
+        <button class="btn btn-primary" type="submit">Sell Shares</button>
+    </form>
+{% endblock %}
